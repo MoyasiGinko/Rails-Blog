@@ -8,5 +8,6 @@ class CreatePosts < ActiveRecord::Migration[7.0]
       t.integer :likes_counter
 
       t.timestamps
+    end
   end
 end
