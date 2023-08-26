@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :author, class_name: 'User', foreign_key: :author_id
   has_many :likes, dependent: :destroy
-  has_many :coments, dependent: :destroy
+  has_many :comments, dependent: :destroy # Fix the typo here
 
   validates :title, presence: true, length: { maximum: 100 }
   validates :text, presence: true
@@ -10,7 +10,7 @@ class Post < ApplicationRecord
   before_destroy :decrement_post_counter
 
   def recent_comments
-    comments.order(created_at: :desc).limit(5)
+    comments.order(created_at: :desc).limit(5) # Use the correct association name here
   end
 
   def increment_post_counter

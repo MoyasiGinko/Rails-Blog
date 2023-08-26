@@ -63,7 +63,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'has many comments' do
-      user = User.reflect_on_association(:coments)
+      user = User.reflect_on_association(:comments)
       expect(user.macro).to eq(:has_many)
     end
   end
