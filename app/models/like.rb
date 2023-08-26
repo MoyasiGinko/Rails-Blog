@@ -8,7 +8,6 @@ class Like < ApplicationRecord
   after_create :increase_likes_counter
 
   def increase_likes_counter
-    post.likes_counter += 1
-    post.save
+    post.increment(:likes_counter).save
   end
 end
