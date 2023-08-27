@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_25_221633) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_26_094403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "coments", force: :cascade do |t|
+  create_table "comments", force: :cascade do |t|
     t.bigint "author_id"
     t.bigint "post_id"
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["author_id"], name: "index_coments_on_author_id"
-    t.index ["post_id"], name: "index_coments_on_post_id"
+    t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -51,10 +51,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_25_221633) do
     t.integer "post_counter"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "posts_counter", default: 0
   end
 
-  add_foreign_key "coments", "posts"
-  add_foreign_key "coments", "users", column: "author_id"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users", column: "author_id"
   add_foreign_key "posts", "users", column: "author_id"
