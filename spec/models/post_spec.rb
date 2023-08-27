@@ -78,11 +78,11 @@ RSpec.describe Post, type: :model do
     it 'will show 5 recent comments' do
       user = User.create(name: 'moyasi', bio: 'I am a knowledge hunger', photo: 'user.jpg', posts_counter: 0)
       post = Post.create!(title: 'Post 1', text: 'Text 1', author: user, comments_counter: 0, likes_counter: 0)
-      Comment.create(author: user, post: post, text: 'comment 1')
-      Comment.create(author: user, post: post, text: 'comment 2')
-      Comment.create(author: user, post: post, text: 'comment 3')
-      Comment.create(author: user, post: post, text: 'comment 4')
-      Comment.create(author: user, post: post, text: 'comment 5')
+      Comment.create(author: user, post:, text: 'comment 1')
+      Comment.create(author: user, post:, text: 'comment 2')
+      Comment.create(author: user, post:, text: 'comment 3')
+      Comment.create(author: user, post:, text: 'comment 4')
+      Comment.create(author: user, post:, text: 'comment 5')
 
       recent_comments = post.recent_comments
       expect(recent_comments.count).to eq(5)
