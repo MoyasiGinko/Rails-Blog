@@ -7,7 +7,9 @@ RSpec.describe Post, type: :model do
       post = Post.new(
         title: 'Title 0',
         text: 'Text 0',
-        author: user
+        author: user,
+        comments_counter: 0,
+        likes_counter: 0
       )
       expect(post).to be_valid
     end
@@ -19,7 +21,7 @@ RSpec.describe Post, type: :model do
       expect(post).not_to be_valid
     end
 
-    it 'is not valid without a photo' do
+    it 'is not valid without text' do
       post = Post.new(
         title: 'Title 0'
       )
@@ -27,7 +29,7 @@ RSpec.describe Post, type: :model do
     end
 
     it 'is not valid if text exceeds maximum length' do
-      long_text = 'a' * 101
+      long_text = 'a' * 251
       post = Post.new(
         title: 'Title 0',
         text: long_text
@@ -61,12 +63,12 @@ RSpec.describe Post, type: :model do
     let(:user) { User.create(name: 'User Name', photo: 'user.jpg', bio: 'User bio goes here', posts_counter: 0) }
 
     it 'increments posts_counter on author after post creation' do
-      expect { Post.create(title: 'Title 0', text: 'Text 0', author: user) }
+      expect { Post.create(title: 'Title 0', text: 'Text 0', author: user, comments_counter: 0, likes_counter: 0) }
         .to change { user.reload.posts_counter }.by(1)
     end
 
     it 'decrements posts_counter on author before post destruction' do
-      post = Post.create(title: 'Title 0', text: 'Text 0', author: user)
+      post = Post.create(title: 'Title 0', text: 'Text 0', author: user, comments_counter: 0, likes_counter: 0)
       expect { post.destroy }
         .to change { user.reload.posts_counter }.by(-1)
     end
@@ -75,12 +77,12 @@ RSpec.describe Post, type: :model do
   describe 'Show 5 recent comments' do
     it 'will show 5 recent comments' do
       user = User.create(name: 'moyasi', bio: 'I am a knowledge hunger', photo: 'user.jpg', posts_counter: 0)
-      post = Post.create!(title: 'Post 1', text: 'Text 1', author: user)
-      Comment.create(author: user, post:, text: 'comment 1')
-      Comment.create(author: user, post:, text: 'comment 2')
-      Comment.create(author: user, post:, text: 'comment 3')
-      Comment.create(author: user, post:, text: 'comment 4')
-      Comment.create(author: user, post:, text: 'comment 5')
+      post = Post.create!(title: 'Post 1', text: 'Text 1', author: user, comments_counter: 0, likes_counter: 0)
+      Comment.create(author: user, post: post, text: 'comment 1')
+      Comment.create(author: user, post: post, text: 'comment 2')
+      Comment.create(author: user, post: post, text: 'comment 3')
+      Comment.create(author: user, post: post, text: 'comment 4')
+      Comment.create(author: user, post: post, text: 'comment 5')
 
       recent_comments = post.recent_comments
       expect(recent_comments.count).to eq(5)
