@@ -77,12 +77,12 @@ RSpec.describe User, type: :model do
         posts_counter: 0
       )
 
-      Post.create!(title: 'Post 1', text: 'Text 1', author: user)
-      Post.create!(title: 'Post 2', text: 'Text 2', author: user)
-      Post.create!(title: 'Post 3', text: 'Text 3', author: user)
-      Post.create!(title: 'Post 4', text: 'Text 4', author: user)
-      Post.create!(title: 'Post 5', text: 'Text 5', author: user)
-      Post.create!(title: 'Post 6', text: 'Text 6', author: user)
+      Post.create!(title: 'Post 1', text: 'Text 1', author: user, comments_counter: 0, likes_counter: 0)
+      Post.create!(title: 'Post 2', text: 'Text 2', author: user, comments_counter: 0, likes_counter: 0)
+      Post.create!(title: 'Post 3', text: 'Text 3', author: user, comments_counter: 0, likes_counter: 0)
+      Post.create!(title: 'Post 4', text: 'Text 4', author: user, comments_counter: 0, likes_counter: 0)
+      Post.create!(title: 'Post 5', text: 'Text 5', author: user, comments_counter: 0, likes_counter: 0)
+      Post.create!(title: 'Post 6', text: 'Text 6', author: user, comments_counter: 0, likes_counter: 0)
 
       recent_posts = user.recent_posts
       expect(recent_posts.count).to eq(5)

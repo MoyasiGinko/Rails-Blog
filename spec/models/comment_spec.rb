@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
   let(:user) { User.create(name: 'moyasi', bio: 'I am a knowledge hunger', photo: 'user.jpg', posts_counter: 0) }
-  let(:post) { Post.create(title: 'Post 1', text: 'Text 1', author: user) }
+  let(:post) { Post.create(title: 'Post 1', text: 'Text 1', author: user, comments_counter: 0, likes_counter: 0) }
 
   it 'increases the comments_counter of the associated post after create' do
     comment = Comment.new(author: user, post:, text: 'comment 1')

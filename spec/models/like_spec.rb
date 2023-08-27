@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Like, type: :model do
   let(:user) { User.create!(name: 'User Name', photo: 'user.jpg', bio: 'User bio goes here', posts_counter: 0) }
-  let(:post) { Post.create!(title: 'Title 0', text: 'Text 0', author: user) }
+  let(:post) { Post.create!(title: 'Title 0', text: 'Text 0', author: user, comments_counter: 0, likes_counter: 0) }
 
   describe 'increase_likes_counter on associated post creation' do
     before do
