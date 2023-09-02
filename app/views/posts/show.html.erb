@@ -68,21 +68,25 @@
 <body>
 
 <div class="container">
-    <div class="user-header">
-        <h2><%= @user.name %></h2>
-        <h3><%= @targated_post.text %></h3>
-        <p>Number of Likes: <%= @targated_post.likes_counter %></p>
-        <p>Number of Comments: <%= @targated_post.comments_counter %></p>
-    </div>
+  <div class="user-header">
+    <h2><%= @user.name %></h2>
+    <h3><%= @targated_post.text %></h3>
+    <p>Number of Likes: <%= @targated_post.likes_counter %></p>
+    <p>Number of Comments: <%= @targated_post.comments_counter %></p>
+  </div>
 
-    <div class="comments">
-        <ul>
-            <% @comments.each do |comment| %>
-                <li><%= comment.text %></li>
-            <% end %>
-        </ul>
-    </div>
+  <div class="comments">
+    <!-- Link to create a new comment -->
+    <%= link_to 'Add Comment', new_user_post_comment_path(@user, @targated_post) %>
+
+    <ul>
+      <% @comments.reverse.each do |comment| %>
+        <li><%= comment.text %></li>
+      <% end %>
+    </ul>
+  </div>
 </div>
+
 
 </body>
 </html>
