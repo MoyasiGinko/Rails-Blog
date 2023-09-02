@@ -98,7 +98,7 @@
             <div class="comments">
                 <p><%= post.comments.count %> Comments</p>
                 <ul>
-                    <% post.comments.each do |comment| %>
+                    <% post.recent_comments.each do |comment| %>
                         <li><%= comment.text %></li>
                     <% end %>
                 </ul>
