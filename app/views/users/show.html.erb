@@ -25,14 +25,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 20px;
             margin-bottom: 20px;
         }
 
         .user-header h2 {
             margin: 0;
-            font-size: 24px;
+            font-size: 28px;
+            color: #007bff;
         }
 
         .user-bio {
@@ -44,7 +45,12 @@
 
         .user-bio h3 {
             margin-top: 0;
+            font-size: 24px;
+        }
+
+        .user-bio p {
             font-size: 18px;
+            color: #333;
         }
 
         .user-posts {
@@ -55,15 +61,21 @@
 
         .post {
             flex: 1;
-            border: 1px solid #ccc;
+            border: 2px solid #ccc;
             padding: 20px;
             background-color: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .user-posts h2 {
+        .post h2 {
             margin-top: 0;
             font-size: 22px;
+            color: #333;
+        }
+
+        .post p {
+            font-size: 18px;
+            color: #555;
         }
 
         .see-all-posts {
@@ -75,6 +87,7 @@
             color: #007bff;
             text-decoration: none;
             font-weight: bold;
+            font-size: 20px;
         }
     </style>
 </head>
@@ -82,7 +95,7 @@
 
 <div class="container">
     <div class="user-header">
-        <h2><%= @user.name %></h2>
+        <h2><%= @user.name %>'s Posts</h2>
         <p>Number of Posts: <%= @posts.count %></p>
     </div>
 
