@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
         }
 
         .container {
@@ -21,49 +21,92 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .user-header {
+        .user-profile {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
             margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
-        .user-header h2 {
-            margin: 0;
-            font-size: 24px;
+        img {
+            max-width: 260px;
+            height: auto;
+            border-radius: 50%;
+            margin-right: 20px; /* Spacing between image and user details */
+        }
+
+        .user-content {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .user-content a {
+            text-decoration: none;
             color: #333;
         }
 
-        .user-header p {
-            margin: 0;
+        .user-name {
+            font-size: 32px;
+        }
+
+        .user-details {
+            font-size: 16px;
+            color: #777;
+            flex-grow: 1; /* Allows user-details to grow and fill available space */
+        }
+
+        .num-posts {
+            align-self: flex-end; /* Aligns number of posts to the bottom of the list item */
             font-size: 16px;
             color: #777;
         }
 
         .post {
-            border: 1px solid #ccc;
+            border: 2px solid #ccc;
             padding: 20px;
             margin-bottom: 20px;
-            background-color: #fff;
+            background-color: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .post h2 {
             margin-top: 0;
-            font-size: 22px;
+            font-size: 24px;
             color: #333;
         }
 
         .post p {
-            font-size: 16px;
+            font-size: 18px;
             color: #555;
         }
 
+        .post a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .right-status {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        li {
+            text-decoration: none;
+            list-style: none;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
         .comments {
-            margin-top: 10px;
-            font-size: 14px;
+            margin-top: 15px;
+            font-size: 16px;
             color: #777;
         }
 
@@ -86,20 +129,26 @@
 <body>
 
 <div class="container">
-    <div class="user-header">
-        <h2><%= @user.name %></h2>
-        <p>Number of Posts: <%= @posts.count %></p>
-    </div>
+    <li class = "user-profile">
+        <img src="<%= @user.photo %>" alt="User Image">
+        <div class="user-content">
+            <div class="user-name"><%= @user.name %></div>
+            <div class="num-posts">Number of Posts: <%= @user.posts_counter %></div>
+        </div>
+    </li>
 
     <% @posts.each do |post| %>
         <div class="post">
-            <h2><%= post.title %></h2>
+             <h2><a href="<%= user_post_path(@user, post) %>"><%= post.title %></a></h2>
             <p><%= post.text %></p>
             <div class="comments">
-                <p><%= post.comments.count %> Comments</p>
+                <div class="right-status">
+                    <P><%= post.likes.count %> Like</p>
+                    <p><%= post.comments.count %> Comments</p>
+                </div>
                 <ul>
-                    <% post.comments.each do |comment| %>
-                        <li><%= comment.text %></li>
+                    <% post.recent_comments.each do |comment| %>
+                        <li><%= @user.name %>: <%= comment.text %></li>
                     <% end %>
                 </ul>
             </div>

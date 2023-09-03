@@ -21,18 +21,47 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .user-header {
+        li {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
-        .user-header h2 {
-            margin: 0;
-            font-size: 24px;
+        img {
+            max-width: 260px;
+            height: auto;
+            border-radius: 50%;
+            margin-right: 20px; /* Spacing between image and user details */
+        }
+
+        .user-content {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .user-content a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .user-name {
+            font-size: 32px;
+        }
+
+        .user-details {
+            font-size: 16px;
+            color: #777;
+            flex-grow: 1; /* Allows user-details to grow and fill available space */
+        }
+
+        .num-posts {
+            align-self: flex-end; /* Aligns number of posts to the bottom of the list item */
+            font-size: 16px;
+            color: #777;
         }
 
         .user-bio {
@@ -44,26 +73,48 @@
 
         .user-bio h3 {
             margin-top: 0;
+            font-size: 24px;
+        }
+
+        .user-bio p {
             font-size: 18px;
+            color: #333;
         }
 
         .user-posts {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 20px;
         }
 
         .post {
             flex: 1;
-            border: 1px solid #ccc;
+            border: 2px solid #ccc;
             padding: 20px;
             background-color: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .user-posts h2 {
+        .post h2 {
             margin-top: 0;
             font-size: 22px;
+            color: #333;
+        }
+
+        .post p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .post a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .right-status {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
         }
 
         .see-all-posts {
@@ -75,16 +126,20 @@
             color: #007bff;
             text-decoration: none;
             font-weight: bold;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="user-header">
-        <h2><%= @user.name %></h2>
-        <p>Number of Posts: <%= @posts.count %></p>
-    </div>
+    <li>
+        <img src="<%= @user.photo %>" alt="User Image">
+        <div class="user-content">
+            <div class="user-name"><%= @user.name %></div>
+            <div class="num-posts">Number of Posts: <%= @user.posts_counter %></div>
+        </div>
+    </li>
 
     <div class="user-bio">
         <h3>Bio</h3>
@@ -92,16 +147,20 @@
     </div>
 
     <div class="user-posts">
-        <% @posts.each do |post| %>
+        <% @user.recent_posts.each do |post| %>
             <div class="post">
-                <h2><%= post.title %></h2>
+                <h2><a href="<%= user_post_path(@user, post) %>"><%= post.title %></a></h2>
                 <p><%= post.text %></p>
+                <div class="right-status">
+                    <P><%= post.likes.count %> Like</p>
+                    <p><%= post.comments.count %> Comments</p>
+                </div>
             </div>
         <% end %>
     </div>
 
     <div class="see-all-posts">
-        <a href="#">See all posts</a>
+        <a href="<%= user_posts_path(@user) %>">See all posts</a>
     </div>
 </div>
 

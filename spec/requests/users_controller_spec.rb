@@ -14,7 +14,7 @@ RSpec.describe 'Users', type: :request do
 
     it 'includes correct placeholder text in the response body' do
       get '/users'
-      expect(response.body).to include('List of All Users')
+      expect(response.body).to include('Microverse Community - All Users')
     end
   end
 

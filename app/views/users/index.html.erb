@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of All Users</title>
+    <title>Microverse Community - All Users</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,41 +12,91 @@
             background-color: #f0f0f0;
         }
 
-        h1 {
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
             text-align: center;
-            font-size: 24px;
-            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin: 0;
         }
 
         ul {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             list-style: none;
-            padding: 0;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         li {
-            text-align: center;
-            margin-top: 10px;
+            display: flex;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
         img {
-            height: 50vh;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 260px;
+            height: auto;
+            border-radius: 50%;
+            margin-right: 20px; /* Spacing between image and user details */
+        }
+
+        .user-content {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .user-content a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .user-name {
+            font-size: 32px;
+        }
+
+        .user-details {
+            font-size: 16px;
+            color: #777;
+            flex-grow: 1; /* Allows user-details to grow and fill available space */
+        }
+
+        .num-posts {
+            align-self: flex-end; /* Aligns number of posts to the bottom of the list item */
+            font-size: 16px;
+            color: #777;
         }
     </style>
 </head>
 <body>
 
-<h1>List of All Users</h1>
+<header>
+    <h1>Microverse Community - All Users</h1>
+</header>
 
 <ul>
     <% @users.each do |user| %>
-        <li><%= user.name %></li>
-        <li><img src="<%= user.photo %>" alt="User Image"></li>
+        <li>
+            <img src="<%= user.photo %>" alt="User Image">
+            <div class="user-content">
+                <a href="<%= user_path(user) %>">
+                    <div class="user-name"><%= user.name %></div>
+                </a>
+                <div class="num-posts">Number of Posts: <%= user.posts_counter %></div>
+            </div>
+            
+        </li>
     <% end %>
 </ul>
 

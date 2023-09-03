@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #f5f5f5;
         }
 
         .container {
@@ -23,9 +23,8 @@
 
         .user-header {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-bottom: 1px solid #ccc;
+            justify-content: space-between;
+            border-bottom: 2px solid #007bff;
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
@@ -33,19 +32,32 @@
         .user-header h2 {
             margin: 0;
             font-size: 24px;
-            color: #333;
+            color: #555;
         }
 
         .user-header h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .user-header p {
             margin: 0;
             font-size: 18px;
             color: #555;
         }
 
-        .user-header p {
-            margin: 0;
-            font-size: 16px;
-            color: #777;
+        .left-corner {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center; /* Vertically center the text in the header */
+        }
+
+        .right-corner {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
         }
 
         .comments {
@@ -59,7 +71,8 @@
         }
 
         .comments ul li {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            font-size: 18px;
             color: #555;
         }
     </style>
@@ -68,10 +81,15 @@
 
 <div class="container">
     <div class="user-header">
-        <h2><%= @user.name %></h2>
-        <h3><%= @targated_post.text %></h3>
-        <p>Number of Comments: <%= @targated_post.comments_counter %></p>
+        <div class="left-corner">
+            <h2>Post #<%= @targated_post.id %> by <%= @user.name %></h2>
+        </div>
+        <div class="right-corner">
+            <p>Likes: <%= @targated_post.likes_counter %></p>
+            <p>Comments: <%= @targated_post.comments_counter %></p>
+        </div>
     </div>
+    <h3><%= @targated_post.text %></h3>
 
     <div class="comments">
         <ul>
