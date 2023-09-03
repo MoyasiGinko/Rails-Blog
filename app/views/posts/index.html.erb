@@ -152,6 +152,22 @@
                     <% end %>
                 </ul>
             </div>
+            <div class="action-buttons">
+
+                <div>
+                    <%= form_with url: user_post_likes_path(@user, post), method: :post, remote: true do |form| %>
+                        <%= form.submit "Like" %>
+                    <% end %>
+                    <%= post.likes_counter %>
+                </div>
+                <%= link_to 'Add Comment', new_user_post_comment_path(@user, post) %>
+                <%= link_to 'New Post', new_user_post_path(@user) %>
+
+                <%= form_with url: user_post_path(@user, post), method: :delete, remote: true do |form| %>
+                    <%= form.submit "Delete" %>
+                <% end %>
+
+        </div>
         </div>
     <% end %>
 </div>
