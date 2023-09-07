@@ -24,7 +24,7 @@ RSpec.describe 'User post show page', type: :feature do
     end
 
     it 'Should display user comment counter and likes counter' do
-      expect(page).to have_selector(".right-corner", count: 1)
+      expect(page).to have_selector('.right-corner', count: 1)
     end
     it 'Should display all posts content' do
       expect(page).to have_content(@post1.text)
@@ -34,13 +34,11 @@ RSpec.describe 'User post show page', type: :feature do
       expect(page).to have_content(@comment2.text)
     end
     it 'Should have comments authors' do
-        expect(page).to have_content(@comment1.author.name)
-        expect(page).to have_content(@comment1.text)
-        expect(page).to have_content("Lima")
-        expect(page).to have_content("Hi Tom!")
+      expect(page).to have_content(@comment1.author.name)
+      expect(page).to have_content(@comment1.text)
+      expect(page).to have_content('Lima')
+      expect(page).to have_content('Hi Tom!')
     end
-
-
   end
 
   describe 'Test links' do

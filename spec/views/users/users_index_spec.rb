@@ -4,11 +4,11 @@ RSpec.describe 'User index page', type: :feature do
   before(:each) do
     @user1 = User.create(name: 'Tomy',
                          photo: 'https://cdn.pixabay.com/photo/2015/06/22/08/40/child-817373_1280.jpg',
-                         bio: 'Tomy bio', 
+                         bio: 'Tomy bio',
                          posts_counter: 0)
     @user2 = User.create(name: 'Lima',
                          photo: 'https://cdn.pixabay.com/photo/2015/06/22/08/40/child-817373_1280.jpg',
-                         bio: 'Lima bio', 
+                         bio: 'Lima bio',
                          posts_counter: 0)
 
     post1 = Post.create(title: 'Post 1', text: 'Text 1', author: @user1, comments_counter: 0, likes_counter: 0)

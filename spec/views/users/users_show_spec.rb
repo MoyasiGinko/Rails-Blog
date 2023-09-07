@@ -19,8 +19,7 @@ RSpec.describe 'User show page', type: :feature do
       )
     end
     it 'Should display user post counter' do
-      expect(page).to have_selector('.num-posts', count: 1
-    )
+      expect(page).to have_selector('.num-posts', count: 1)
     end
     it 'Should display the bio of the user' do
       expect(page).to have_content(@user1.bio)

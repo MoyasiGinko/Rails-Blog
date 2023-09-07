@@ -40,7 +40,7 @@ RSpec.describe 'User posts index page', type: :feature do
     end
 
     it 'Should display user comment counter and likes counter' do
-      expect(page).to have_selector(".right-status", count: 2)
+      expect(page).to have_selector('.right-status', count: 2)
     end
     it 'Should list latest comments' do
       expect(page).to have_content(@comment1.text)
