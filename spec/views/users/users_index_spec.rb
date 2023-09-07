@@ -17,6 +17,10 @@ RSpec.describe 'User index page', type: :feature do
     visit users_path
   end
 
+  it 'Should display the user page heading' do
+    expect(page).to have_content('Microverse Community - All Users')
+  end
+
   describe 'Displaying user information' do
     it 'Should display names of all the users' do
       expect(page).to have_content('Tomy')
