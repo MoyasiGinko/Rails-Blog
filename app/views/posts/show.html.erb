@@ -97,6 +97,14 @@
     <ul>
       <% @comments.reverse.each do |comment| %>
         <li><%= comment.author.name %>: <%= comment.text %></li>
+        <% if can? :destroy, comment %>
+            <%= form_with url: user_post_comment_path(@user, @targated_post, comment), method: :delete, remote: true do |form| %>
+                <%= form.submit "Delete" %>
+            <% end %>
+        <% end %>
+
+
+
       <% end %>
     </ul>
   </div>

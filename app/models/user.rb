@@ -14,6 +14,10 @@ class User < ApplicationRecord
 
   has_one_attached :photo
 
+  def admin?
+    role == 'admin' # Assuming you use a 'role' attribute to store user roles
+  end
+
   def recent_posts
     posts.order(created_at: :desc).limit(3)
   end

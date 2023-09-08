@@ -3,7 +3,6 @@ class Post < ApplicationRecord
   has_many :likes, foreign_key: :post_id, dependent: :destroy
   has_many :comments, foreign_key: :post_id, dependent: :destroy
 
-
   validates :title, presence: true, length: { maximum: 250 }
   validates :text, presence: true
   after_create :increment_post_counter
