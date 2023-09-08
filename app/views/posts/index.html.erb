@@ -134,7 +134,7 @@
 
 <div class="container">
     <li class = "user-profile">
-        <img src="<%= @user.photo %>" alt="User Image">
+        <%= image_tag @user.photo if @user.photo.attached? %>
         <div class="user-content">
             <div class="user-name"><%= @user.name %></div>
             <div class="num-posts">Number of Posts: <%= @user.posts_counter %></div>
