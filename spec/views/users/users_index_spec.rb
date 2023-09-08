@@ -11,8 +11,8 @@ RSpec.describe 'User index page', type: :feature do
                          bio: 'Lima bio',
                          posts_counter: 0)
 
-    post1 = Post.create(title: 'Post 1', text: 'Text 1', author: @user1, comments_counter: 0, likes_counter: 0)
-    post2 = Post.create(title: 'Post 2', text: 'Text 2', author: @user2, comments_counter: 0, likes_counter: 0)
+    Post.create(title: 'Post 1', text: 'Text 1', author: @user1, comments_counter: 0, likes_counter: 0)
+    Post.create(title: 'Post 2', text: 'Text 2', author: @user2, comments_counter: 0, likes_counter: 0)
 
     visit users_path
   end

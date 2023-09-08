@@ -16,11 +16,10 @@ class PostsController < ApplicationController
   end
 
   def create
-    @user = User.find(params[:user_id])
-    @post = @user.posts.build(post_params)
+    @post = current_user.posts.build(post_params)
 
     if @post.save
-      redirect_to user_post_path(@user, @post)
+      redirect_to user_post_path(current_user, @post) # Redirect to the user's post
     else
       render 'new'
     end
@@ -28,8 +27,14 @@ class PostsController < ApplicationController
 
   def destroy
     @post = current_user.posts.find(params[:id])
+
+    # Delete associated comments
+    @post.comments.destroy_all
+
+    # Now you can safely delete the post
     @post.destroy
-    redirect_to user_posts_path
+
+    redirect_to user_posts_path(current_user)
   end
 
   private
