@@ -2,6 +2,14 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
 
+  namespace :api do
+      resources :users, only: [] do
+        resources :posts, only: [:index] do
+          resources :comments, only: [:index, :create]
+        end
+      end
+    end
+
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions',
