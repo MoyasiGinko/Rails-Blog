@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  load_and_authorize_resource
   before_action :find_user, only: %i[index show]
   before_action :find_post, only: [:show]
 
@@ -7,6 +8,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @user = @targated_post.author
     @comments = @targated_post.comments
   end
 
@@ -26,16 +28,21 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = current_user.posts.find(params[:id])
-
-    # Delete associated comments
-    @post.comments.destroy_all
-
-    # Now you can safely delete the post
     @post.destroy
-
-    redirect_to user_posts_path(current_user)
+    redirect_to user_posts_path, notice: 'Post was successfully deleted.'
   end
+
+  # def destroy
+  #   @post = current_user.posts.find(params[:id])
+
+  #   # Delete associated comments
+  #   @post.comments.destroy_all
+
+  #   # Now you can safely delete the post
+  #   @post.destroy
+
+  #   redirect_to user_posts_path(current_user)
+  # end
 
   private
 

@@ -21,7 +21,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        li {
+        .box {
             display: flex;
             padding: 15px;
             background-color: #fff;
@@ -133,7 +133,7 @@
 <body>
 
 <div class="container">
-    <li>
+    <li class="box">
         <%= image_tag @user.photo if @user.photo.attached? %>
         <div class="user-content">
             <div class="user-name"><%= @user.name %></div>

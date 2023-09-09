@@ -95,7 +95,7 @@
             justify-content: flex-end;
         }
 
-        li {
+        .single-comment {
             text-decoration: none;
             list-style: none;
             padding: 15px;
@@ -146,7 +146,7 @@
 
     <% @posts.includes(:author).each do |post| %>
         <div class="post">
-             <h2><a href="<%= user_post_path(@user, post) %>"><%= post.title %></a></h2>
+            <h2><a href="<%= user_post_path(@user, post) %>"><%= post.title %></a></h2>
             <p><%= post.text %></p>
             <div class="comments">
                 <div class="right-status">
@@ -155,27 +155,24 @@
                 </div>
                 <ul>
                     <% post.recent_comments.each do |comment| %>
-                        <li><%= comment.author.name %>: <%= comment.text %></li>
+                        <li class="single-comment"><%= comment.author.name %>: <%= comment.text %></li>
                     <% end %>
                 </ul>
             </div>
             <div class="action-buttons">
-
-            <div>
-                <%= form_with url: user_post_likes_path(@user, post), method: :post, remote: true do |form| %>
-                    <%= form.submit "Like" %>
+                <div>
+                    <%= form_with url: user_post_likes_path(@user, post), method: :post, remote: true do |form| %>
+                        <%= form.submit "Like" %>
+                    <% end %>
+                    <%= post.likes_counter %>
+                </div>
+                <%= link_to 'Add Comment', new_user_post_comment_path(@user, post) %>
+                <% if can? :destroy, post %>
+                    <%= form_with url: user_post_path(@user, post), method: :delete, remote: true do |form| %>
+                        <%= form.submit "Delete" %>
+                    <% end %>
                 <% end %>
-                <%= post.likes_counter %>
             </div>
-            <%= link_to 'Add Comment', new_user_post_comment_path(@user, post) %>
-
-            <% if user_signed_in? && current_user == post.author %>
-                <%= form_with url: user_post_path(@user, post), method: :delete, remote: true do |form| %>
-                    <%= form.submit "Delete" %>
-                <% end %>
-            <% end %>
-
-        </div>
         </div>
     <% end %>
     <button type="button"><%= link_to "Back to users", users_path %></button>
