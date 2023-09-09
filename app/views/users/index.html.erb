@@ -84,11 +84,19 @@
 <header>
     <h1>Microverse Community - All Users</h1>
 </header>
-
+<div class="register">
+    <% if user_signed_in? %>
+        <%= button_to "Sign out", destroy_user_session_path, class: 'btn', :method => :delete %>
+        <%= link_to "Edit Profile", edit_user_registration_path, class: "btn" %>
+    <% else %>
+        <%= link_to "Sign Up", new_user_registration_path %>
+        <%= link_to "Log In", new_user_session_path %>
+    <% end %>
+</div>
 <ul>
     <% @users.each do |user| %>
         <li>
-            <img src="<%= user.photo %>" alt="User Image">
+            <%= image_tag user.photo if user.photo.attached? %>
             <div class="user-content">
                 <a href="<%= user_path(user) %>">
                     <div class="user-name"><%= user.name %></div>

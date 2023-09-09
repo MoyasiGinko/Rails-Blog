@@ -13,7 +13,19 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to user_post_path(@post.author, @post)
     else
-      render new
+      render :new
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.find_by(author: current_user)
+
+    if @comment
+      @comment.destroy
+      redirect_to user_post_path(@post.author, @post), notice: 'Deleted!'
+    else
+      redirect_to user_post_path(@post.author, @post), alert: 'Delete failed.'
     end
   end
 
