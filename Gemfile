@@ -6,6 +6,9 @@ ruby '3.2.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'devise'
 
+# API framework for Ruby
+gem 'rswag-ui'
+
 # Authorization library for Ruby
 gem 'cancancan', '~> 3.5'
 
@@ -59,6 +62,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'rails-controller-testing'
   gem 'rspec-rails'
+  gem 'rswag'
 end
 
 group :development do

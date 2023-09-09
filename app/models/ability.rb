@@ -14,6 +14,9 @@ class Ability
 
       can :create, Comment if user.persisted? # Logged-in users can create comments
       can :destroy, Comment, author_id: user.id # Users can delete their own comments
+
+      can :create, Like if user.persisted? # Logged-in users can like posts
+      can :destroy, Like, author_id: user.id # Users can unlike posts
     end
   end
 end
