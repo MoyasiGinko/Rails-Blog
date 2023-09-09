@@ -28,6 +28,36 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/users/{user_id}/posts/{post_id}/comments/{id}":
+    parameters:
+    - name: user_id
+      in: path
+      description: user_id
+      required: true
+      schema:
+        type: string
+    - name: post_id
+      in: path
+      description: post_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show comment
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete comment
+      responses:
+        '200':
+          description: successful
   "/api/users/{user_id}/posts":
     parameters:
     - name: user_id
@@ -41,6 +71,179 @@ paths:
       responses:
         '200':
           description: successful
+    post:
+      summary: create post
+      responses:
+        '201':
+          description: successful
+  "/api/users/{user_id}/posts/{id}":
+    parameters:
+    - name: user_id
+      in: path
+      description: user_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show post
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete post
+      responses:
+        '200':
+          description: successful
+  "/api/users":
+    get:
+      summary: Retrieves all users
+      tags:
+      - Users
+      responses:
+        '200':
+          description: users found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  photo:
+                    type: string
+                  bio:
+                    type: string
+                  posts_counter:
+                    type: integer
+                required:
+                - id
+                - name
+                - photo
+                - bio
+                - posts_counter
+    post:
+      summary: Creates a user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: user created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                photo:
+                  type: string
+                bio:
+                  type: string
+                posts_counter:
+                  type: integer
+              required:
+              - name
+              - photo
+              - bio
+              - posts_counter
+  "/api/users/{id}":
+    get:
+      summary: Retrieves a user
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  photo:
+                    type: string
+                  bio:
+                    type: string
+                  posts_counter:
+                    type: integer
+                required:
+                - id
+                - name
+                - photo
+                - bio
+                - posts_counter
+        '404':
+          description: user not found
+    put:
+      summary: Updates a user
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user updated
+        '404':
+          description: user not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                photo:
+                  type: string
+                bio:
+                  type: string
+                posts_counter:
+                  type: integer
+              required:
+              - name
+              - photo
+              - bio
+              - posts_counter
+    delete:
+      summary: Deletes a user
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user deleted
+        '404':
+          description: user not found
 servers:
 - url: https://{defaultHost}
   variables:
