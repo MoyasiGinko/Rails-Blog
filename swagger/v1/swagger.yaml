@@ -28,36 +28,6 @@ paths:
       responses:
         '200':
           description: successful
-  "/api/users/{user_id}/posts/{post_id}/comments/{id}":
-    parameters:
-    - name: user_id
-      in: path
-      description: user_id
-      required: true
-      schema:
-        type: string
-    - name: post_id
-      in: path
-      description: post_id
-      required: true
-      schema:
-        type: string
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: show comment
-      responses:
-        '200':
-          description: successful
-    delete:
-      summary: delete comment
-      responses:
-        '200':
-          description: successful
   "/api/users/{user_id}/posts":
     parameters:
     - name: user_id
