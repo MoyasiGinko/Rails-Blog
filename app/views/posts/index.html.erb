@@ -104,6 +104,10 @@
             border-radius: 8px;
         }
 
+        .create-post {
+            margin-bottom: 20px;
+        }
+
         .comments {
             margin-top: 15px;
             font-size: 16px;
@@ -136,8 +140,11 @@
             <div class="num-posts">Number of Posts: <%= @user.posts_counter %></div>
         </div>
     </li>
+    <div class="create-post">
+        <%= link_to 'New Post', new_user_post_path(@user) %>
+    </div>
 
-    <% @posts.each do |post| %>
+    <% @posts.includes(:author).each do |post| %>
         <div class="post">
              <h2><a href="<%= user_post_path(@user, post) %>"><%= post.title %></a></h2>
             <p><%= post.text %></p>
@@ -148,7 +155,7 @@
                 </div>
                 <ul>
                     <% post.recent_comments.each do |comment| %>
-                        <li><%= @user.name %>: <%= comment.text %></li>
+                        <li><%= comment.author.name %>: <%= comment.text %></li>
                     <% end %>
                 </ul>
             </div>
@@ -161,7 +168,6 @@
                     <%= post.likes_counter %>
                 </div>
                 <%= link_to 'Add Comment', new_user_post_comment_path(@user, post) %>
-                <%= link_to 'New Post', new_user_post_path(@user) %>
 
                 <%= form_with url: user_post_path(@user, post), method: :delete, remote: true do |form| %>
                     <%= form.submit "Delete" %>
@@ -170,6 +176,7 @@
         </div>
         </div>
     <% end %>
+    <button type="button"><%= link_to "Back to users", users_path %></button>
 </div>
 
 </body>

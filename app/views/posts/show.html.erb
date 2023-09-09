@@ -96,12 +96,12 @@
     <%= link_to 'Add Comment', new_user_post_comment_path(@user, @targated_post) %>
     <ul>
       <% @comments.reverse.each do |comment| %>
-        <li><%= comment.text %></li>
+        <li><%= comment.author.name %>: <%= comment.text %></li>
       <% end %>
     </ul>
   </div>
+  <a href="/users/<%=@user.id%>/posts"><button type="button">back to posts</button></a>
 </div>
-
 
 </body>
 </html>
