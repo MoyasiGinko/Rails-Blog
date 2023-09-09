@@ -95,7 +95,7 @@
             justify-content: flex-end;
         }
 
-        li {
+        .single-comment {
             text-decoration: none;
             list-style: none;
             padding: 15px;
@@ -155,7 +155,7 @@
                 </div>
                 <ul>
                     <% post.recent_comments.each do |comment| %>
-                        <li><%= comment.author.name %>: <%= comment.text %></li>
+                        <li class="single-comment"><%= comment.author.name %>: <%= comment.text %></li>
                     <% end %>
                 </ul>
             </div>
