@@ -140,10 +140,11 @@
             <div class="num-posts">Number of Posts: <%= @user.posts_counter %></div>
         </div>
     </li>
-    <div class="create-post">
-        <%= link_to 'New Post', new_user_post_path(@user) %>
-    </div>
-
+    <% if can? :create, Post %>    
+        <div class="create-post">
+            <%= link_to 'New Post', new_user_post_path(@user) %>
+        </div>
+    <% end %>
     <% @posts.includes(:author).each do |post| %>
         <div class="post">
             <h2><a href="<%= user_post_path(@user, post) %>"><%= post.title %></a></h2>
@@ -161,12 +162,15 @@
             </div>
             <div class="action-buttons">
                 <div>
-                    <%= form_with url: user_post_likes_path(@user, post), method: :post, remote: true do |form| %>
-                        <%= form.submit "Like" %>
+                    <% if can? :create, Like%>    
+                        <%= form_with url: user_post_likes_path(@user, post), method: :post, remote: true do |form| %>
+                            <%= form.submit "Like" %>
+                        <% end %>
                     <% end %>
-                    <%= post.likes_counter %>
                 </div>
-                <%= link_to 'Add Comment', new_user_post_comment_path(@user, post) %>
+                <% if can? :create, Comment%>
+                    <%= link_to 'Add Comment', new_user_post_comment_path(@user, post) %>
+                <% end %>
                 <% if can? :destroy, post %>
                     <%= form_with url: user_post_path(@user, post), method: :delete, remote: true do |form| %>
                         <%= form.submit "Delete" %>
