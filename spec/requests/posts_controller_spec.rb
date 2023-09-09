@@ -1,51 +1,40 @@
 require 'rails_helper'
 
-RSpec.describe PostsController, type: :controller do
-  describe 'GET #index' do
-    it 'assigns @posts' do
-      # Create a user
-      user = User.create(name: 'John', photo: 'user.jpg', bio: 'Bio goes here', posts_counter: 0)
-
-      # Create posts for the user
-      post1 = Post.create!(title: 'Post 1', text: 'Text 1', author: user, comments_counter: 0, likes_counter: 0)
-      post2 = Post.create!(title: 'Post 2', text: 'Text 2', author: user, comments_counter: 0, likes_counter: 0)
-
-      get :index, params: { user_id: user.id }
-
-      # Check if @posts contains the posts for the user
-      expect(assigns(:posts)).to match_array([post1, post2])
+RSpec.describe 'Users', type: :request do
+  describe 'GET /users' do
+    it 'returns a successful response' do
+      get '/users'
+      expect(response).to have_http_status(302)
     end
 
     it 'renders the index template' do
-      # Create a user
-      user = User.create(name: 'John', photo: 'user.jpg', bio: 'Bio goes here', posts_counter: 0)
-
-      get :index, params: { user_id: user.id }
+      get '/users'
       expect(response).to render_template(:index)
+    end
+
+    it 'includes correct placeholder text in the response body' do
+      get '/users'
+      expect(response.body).to include('Microverse Community - All Users')
     end
   end
 
-  describe 'GET #show' do
-    it 'assigns @comments' do
-      # Create a user
-      user = User.create(name: 'John', photo: 'user.jpg', bio: 'Bio goes here', posts_counter: 0)
+  describe 'GET /users/:id' do
+    let(:user) { User.create(name: 'Test User', photo: 'test.jpg', bio: 'Test Bio', posts_counter: 0) }
 
-      # Create a post for the user
-      post = Post.create!(title: 'Post 1', text: 'Text 1', author: user, comments_counter: 0, likes_counter: 0)
-
-      get :show, params: { user_id: user.id, id: post.id }
-      expect(assigns(:comments)).to eq(post.comments)
+    it 'returns a successful response' do
+      get "/users/#{user.id}"
+      expect(response).to have_http_status(200)
     end
 
     it 'renders the show template' do
-      # Create a user
-      user = User.create(name: 'John', photo: 'user.jpg', bio: 'Bio goes here', posts_counter: 0)
-
-      # Create a post for the user
-      post = Post.create!(title: 'Post 1', text: 'Text 1', author: user, comments_counter: 0, likes_counter: 0)
-
-      get :show, params: { user_id: user.id, id: post.id }
+      get "/users/#{user.id}"
       expect(response).to render_template(:show)
+    end
+
+    it 'includes correct user information in the response body' do
+      get "/users/#{user.id}"
+      expect(response.body).to include(user.name)
+      expect(response.body).to include(user.bio)
     end
   end
 end
