@@ -23,6 +23,24 @@ RSpec.describe 'User post show page', type: :feature do
       expect(page).to have_content(@post1.author.name)
     end
 
+    it 'Should display how many likes the post has' do
+      # Create some likes for the post
+      Like.create(author: @user2, post: @post1)
+      Like.create(author: @user1, post: @post1)
+
+      visit user_post_path(user_id: @user1, id: @post1)
+
+      # Check if the page displays the number of likes
+      expect(page).to have_content('Likes: 2') # Update with the expected like count
+    end
+
+    it 'Should display how many comments the post has' do
+      visit user_post_path(user_id: @user1, id: @post1)
+
+      # Check if the page displays the number of comments
+      expect(page).to have_content('Comments: 2') # Update with the expected comment count
+    end
+
     it 'Should display user comment counter and likes counter' do
       expect(page).to have_selector('.right-corner', count: 1)
     end

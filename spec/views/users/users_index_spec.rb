@@ -36,7 +36,11 @@ RSpec.describe 'User index page', type: :feature do
       )
     end
     it 'Should display users post counter' do
-      expect(page).to have_selector('.num-posts', count: 4) # Assuming there are two users with post counters
+      expect do
+        Post.create(title: 'Post 3', text: 'Text 3', author: @user2, comments_counter: 0, likes_counter: 0)
+      end.to change {
+               @user2.posts_counter
+             }.by(1)
     end
   end
 
